@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<stdlib.h>
 struct node{
     int data;
     struct node* next;
@@ -37,7 +38,7 @@ void insertAtEnd(struct node* head , int value){
     newNode=malloc(sizeof(struct node));
     newNode->data=value;
     newNode->next=NULL;
-    srtuct node *temp = head;
+    struct node *temp = head;
     while(temp->next != NULL){
         temp=temp->next;
     }
@@ -53,7 +54,7 @@ void deleteFromEnd(struct node* head){
     while(temp->next->next!=NULL){
         temp=temp->next;
     }
-    temp->
+    temp->next = NULL;
 }
 void deleteFromMiddle(struct node* head , int position){
     struct node* temp = head;
