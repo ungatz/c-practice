@@ -1,63 +1,102 @@
-// C program for array implementation of stack 
-#include <stdio.h> 
-#include <stdlib.h> 
-#include <limits.h> 
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
 
-// A structure to represent a stack 
-struct Stack 
-{ 
-	int top; 
-	unsigned capacity; 
-	int* array; 
-}; 
+#define MAX 10
 
-// function to create a stack of given capacity. It initializes size of 
-// stack as 0 
-struct Stack* createStack(unsigned capacity) 
-{ 
-	struct Stack* stack = (struct Stack*) malloc(sizeof(struct Stack)); 
-	stack->capacity = capacity; 
-	stack->top = -1; 
-	stack->array = (int*) malloc(stack->capacity * sizeof(int)); 
-	return stack; 
-} 
+struct stack
+{
+    int items[MAX];
+    int top;
+};
+typedef struct stack st;
 
-// Stack is full when top is equal to the last index 
-int isFull(struct Stack* stack) 
-{ return stack->top == stack->capacity - 1; } 
+void createEmptyStack(st *s)
+{
+    s->top=-1;
+}
 
-// Stack is empty when top is equal to -1 
-int isEmpty(struct Stack* stack) 
-{ return stack->top == -1; } 
+int isfull(st *s)
+{
+    if (s->top==MAX-1)
+        return 1;
+    else
+        return 0;
+}
 
-// Function to add an item to stack. It increases top by 1 
-void push(struct Stack* stack, int item) 
-{ 
-	if (isFull(stack)) 
-		return; 
-	stack->array[++stack->top] = item; 
-	printf("%d pushed to stack\n", item); 
-} 
+int isempty(st *s)
+{
+    if (s->top==-1)
+        return 1;
+    else
+        return 0;
+}
 
-// Function to remove an item from stack. It decreases top by 1 
-int pop(struct Stack* stack) 
-{ 
-	if (isEmpty(stack)) 
-		return INT_MIN; 
-	return stack->array[stack->top--]; 
-} 
-// Driver program to test above functions 
-int main() 
-{ 
-	struct Stack* stack = createStack(100); 
-
-	push(stack, 10); 
-	push(stack, 20); 
-	push(stack, 30); 
-
-	printf("%d popped from stack\n", pop(stack)); 
-
-	return 0; 
-} 
+void push(st *s)
+{
+    int newitem;
+    printf("Enter item to be inserted: ");
+    scanf("%d",&newitem);
+    if (isfull(s))
+    {
+        printf("STACK FULL");
+    }
+    else
+    {
+        s->top++;
+        s->items[s->top]=newitem;
+    }
+}
 
 
+void pop (st *s)
+{
+    if (isempty(s))
+    {
+        printf("\n STACK EMPTY \n");
+    }
+    else
+    {
+        printf("Item popped= %d",s->items[s->top]);
+        s->top--;
+    }
+}
+
+void main()
+{
+    int ch;
+    int loop;
+    loop=1;
+    st *s;
+
+    createEmptyStack(s);
+
+    do
+    {
+        printf("\n ***STACK OPERATIONS");
+        printf("\n 1. PUSH");
+        printf("\n 2. POP");
+        printf("\n 3. EXIT");
+        printf("\n ***************");
+        printf("\n Enter your choice: ");
+        scanf("%d", &ch);
+
+        switch (ch)
+        {
+            case 1: 
+                push(s);
+                break;
+            case 2:
+                pop(s);
+                break;
+            case 3:
+                printf("THANK YOU");
+                loop=0;
+                exit(0);
+            default:
+                printf("Invalid choice");
+        }
+    } while(loop);
+
+    getch();
+}
